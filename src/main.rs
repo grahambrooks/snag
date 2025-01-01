@@ -13,6 +13,7 @@ use gix::{
     date::time::format,
     revision::walk::Sorting,
 };
+use log::LevelFilter;
 
 #[tokio::main]
 async fn main() {
@@ -26,6 +27,7 @@ async fn main() {
 #[derive(Debug, clap::Parser)]
 #[clap(name = "log", about = "git log example", version = option_env!("GIX_VERSION"))]
 struct Args {
+    /// snag workspace configuration file location
     #[clap(name = "config", long = "config")]
     config_path: Option<PathBuf>,
     /// Alternative git directory to use
@@ -67,8 +69,19 @@ struct Args {
 }
 
 async fn run(args: Args) -> anyhow::Result<()> {
+    env_logger::builder().filter_level(LevelFilter::Info).init();
+    scm::read_repositories("github").await?;
+    // scm::read_repositories("kuona").await?;
     scm::read_repositories("grahambrooks").await?;
-    config::read_config_file("snag.yaml")?;
+    match args.config_path {
+        None => {
+            config::read_config_file("snag.yaml")?;
+        }
+        Some(config_path) => {
+            config::read_config_file(config_path.to_str().unwrap())?;
+        }
+    };
+
     let repo = gix::discover(args.git_dir.as_deref().unwrap_or(Path::new(".")))?;
     let commit = repo
         .rev_parse_single({
@@ -152,7 +165,10 @@ async fn run(args: Args) -> anyhow::Result<()> {
                 let commit_ref = commit.decode()?;
                 Ok(LogEntryInfo {
                     commit_id: commit.id().to_hex().to_string(),
-                    parents: info.parent_ids().map(|id| id.shorten_or_id().to_string()).collect(),
+                    parents: info
+                        .parent_ids()
+                        .map(|id| id.shorten_or_id().to_string())
+                        .collect(),
                     author: {
                         let mut buf = Vec::new();
                         commit_ref.author.actor().write_to(&mut buf)?;
