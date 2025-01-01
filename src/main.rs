@@ -15,6 +15,7 @@ use gix::{
 };
 use log::LevelFilter;
 
+
 #[tokio::main]
 async fn main() {
     let args = Args::parse_from(gix::env::args_os());
@@ -71,16 +72,13 @@ struct Args {
 async fn run(args: Args) -> anyhow::Result<()> {
     env_logger::builder().filter_level(LevelFilter::Info).init();
     scm::read_repositories("github").await?;
-    // scm::read_repositories("kuona").await?;
     scm::read_repositories("grahambrooks").await?;
-    match args.config_path {
-        None => {
-            config::read_config_file("snag.yaml")?;
-        }
-        Some(config_path) => {
-            config::read_config_file(config_path.to_str().unwrap())?;
-        }
+    let app_config = match args.config_path {
+        None => config::read_config_file("snag.yaml")?,
+        Some(config_path) => config::read_config_file(config_path.to_str().unwrap())?,
     };
+
+    println!("{:#?}", app_config);
 
     let repo = gix::discover(args.git_dir.as_deref().unwrap_or(Path::new(".")))?;
     let commit = repo

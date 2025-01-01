@@ -2531,6 +2531,7 @@ dependencies = [
  "gix",
  "log",
  "octocrab",
+ "regex",
  "serde",
  "serde_yaml",
  "tokio",

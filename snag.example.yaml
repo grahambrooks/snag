@@ -2,7 +2,7 @@ workspace:
   path: ~/workspace
   sources:
     - host: github
-    - owner: grahambrooks
+      owner: grahambrooks
 auth:
-  - host: github
+  github:
     token: ${GITHUB_TOKEN}
