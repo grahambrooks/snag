@@ -1,0 +1,24 @@
+src/config/mod.rs
+  74caea1fa12bc52a 69,86
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "feeeecd3073fd1750a8a256caf5b4d3e5b5765a6",
+  "prompts": {
+    "74caea1fa12bc52a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "51098f9b-3024-4b2c-9346-b02a7999ebc9",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Graham Brooks",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 1,
+      "accepted_lines": 2,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/1233d4f17b49e4583c821c4672206284c72c6c98c4a6db75a9575f6a275fc0ce"
+    }
+  }
+}
