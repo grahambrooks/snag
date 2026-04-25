@@ -66,6 +66,7 @@ mod tests {
 
     #[test]
     fn test_parse_config() {
+        env::set_var("GITHUB_TOKEN", "test-token-value");
         let yaml = r#"
 workspace:
   path: ~/workspace
@@ -82,7 +83,7 @@ auth:
         assert_eq!(config.workspace.sources[0].host, "github");
         assert_eq!(config.workspace.sources[0].owner.as_deref(), Some("grahambrooks"));
         assert_eq!(config.auth.len(), 1);
-        assert_eq!(config.auth["github"].token, env::var("GITHUB_TOKEN").unwrap());
+        assert_eq!(config.auth["github"].token, "test-token-value");
     }
 
     #[test]
