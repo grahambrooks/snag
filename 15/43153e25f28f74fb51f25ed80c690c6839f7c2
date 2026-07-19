@@ -1,0 +1,27 @@
+.github/workflows/release.yml
+  s_524af62fcb4284::t_9f2e3f9339ddc6 1-148
+.release.env
+  s_524af62fcb4284::t_e4dcd293fd5d13 1-7
+Cargo.lock
+  s_524af62fcb4284::t_82af481126c3f8 2620
+Cargo.toml
+  s_524af62fcb4284::t_e77a6aeed0998b 3
+scripts/render-formula.py
+  s_524af62fcb4284::t_338553f0808e29 1-94
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "1543153e25f28f74fb51f25ed80c690c6839f7c2",
+  "prompts": {},
+  "sessions": {
+    "s_524af62fcb4284": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d34aaefe-f594-4e94-b5db-35e086bd65df",
+        "model": "unknown"
+      },
+      "human_author": "Graham Brooks <graham@grahambrooks.com>"
+    }
+  }
+}
